@@ -52,18 +52,53 @@ public class TestMatrix{
      @Test
      public void multiply_matrices_should_multiply_two_matrices(){
          Matrix firstMatrix = new Matrix(1,2);
-
          firstMatrix.initializeValue(0,0,1);
          firstMatrix.initializeValue(0,1,1);
 
          Matrix secondMatrix = new Matrix(2,1);
-
          secondMatrix.initializeValue(0,0,1);
          secondMatrix.initializeValue(1,0,1);
 
+         Matrix expected = new Matrix(1,1);
+         expected.initializeValue(0,0,2);
+
          Matrix result = firstMatrix.multiplyWith(secondMatrix);
+         assertEquals(true,result.isEqualTo(expected));
+     }
 
-         assertEquals(2,result.getMatrixValue(0,0));
+     @Test
+     public void multiply_matrices_should_multiply_matrix_of_large_dimensions(){
+         Matrix firstMatrix = new Matrix(3,2);
 
+         firstMatrix.initializeValue(0,0,1);
+         firstMatrix.initializeValue(0,1,5);
+         firstMatrix.initializeValue(1,0,2);
+         firstMatrix.initializeValue(1,1,6);
+         firstMatrix.initializeValue(2,0,3);
+         firstMatrix.initializeValue(2,1,4);
+
+         Matrix secondMatrix = new Matrix(2,3);
+
+         secondMatrix.initializeValue(0,0,3);
+         secondMatrix.initializeValue(0,1,2);
+         secondMatrix.initializeValue(0,2,1);
+         secondMatrix.initializeValue(1,0,0);
+         secondMatrix.initializeValue(1,1,1);
+         secondMatrix.initializeValue(1,2,0);
+
+         Matrix expectedMatrix = new Matrix(3,3);
+
+         expectedMatrix.initializeValue(0,0,3);
+         expectedMatrix.initializeValue(0,1,7);
+         expectedMatrix.initializeValue(0,2,1);
+         expectedMatrix.initializeValue(1,0,6);
+         expectedMatrix.initializeValue(1,1,10);
+         expectedMatrix.initializeValue(1,2,2);
+         expectedMatrix.initializeValue(2,0,9);
+         expectedMatrix.initializeValue(2,1,10);
+         expectedMatrix.initializeValue(2,2,3);
+
+         Matrix result = firstMatrix.multiplyWith(secondMatrix);
+        assertEquals(true,result.isEqualTo(expectedMatrix));
      }
 }

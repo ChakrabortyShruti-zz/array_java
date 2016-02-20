@@ -1,3 +1,5 @@
+import static java.util.Arrays.deepEquals;
+
 class Matrix{
     private int rows;
     private int columns;
@@ -28,15 +30,20 @@ class Matrix{
     }
 
     public Matrix multiplyWith(Matrix matrix1){
-        for (int i=0;i<this.rows;i++) {
-            int sumOfProduct = 0;
-            for (int j=0;j<matrix1.rows;j++ ) {
-                sumOfProduct += this.getMatrixValue(i,j) * matrix1.getMatrixValue(j,i);
-            }
-            for(int k=0;k<this.rows;k++){
-                this.initializeValue(i,k,sumOfProduct);
+        Matrix newMatrix = new Matrix(this.rows,matrix1.columns);
+        for(int i=0;i<this.rows;i++){
+            for(int j=0;j<matrix1.columns;j++){
+                int sumOfProduct = 0;
+                for(int k=0;k<matrix1.rows;k++){
+                    sumOfProduct = sumOfProduct + (this.getMatrixValue(i,k) * matrix1.getMatrixValue(k,j));
+                }
+                newMatrix.initializeValue(i,j,sumOfProduct);
             }
         }
-        return this;
+        return newMatrix;
+    }
+
+    public boolean isEqualTo(Matrix matrix){
+        return (deepEquals(this.matrixElements,matrix.matrixElements));
     }
 }
